@@ -53,7 +53,6 @@ public class ConverterPHP {
             while (matcher.find()) {
                 if(!eNaoVar(matcher.group(0))){
                     if(!variaveis.contains(matcher.group(0)) && variaveisDeclaradas.contains(matcher.group(0))){
-                        System.out.println(matcher.group(0));
                         texto = texto.replace(matcher.group(0), "$"+matcher.group(0));
                         variaveis.add(matcher.group(0));
                     }
