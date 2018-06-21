@@ -15,10 +15,11 @@ main(){
    g = 8-8+a-a*a/a+1;
 
    int x;
-   float x1,z3e;
+   float x1,z3n;
 
    while(d != 9){
-         z3e = 1-1/0/5+58;
+         z3n = 1-1/0/5+58;
+	 x1 = 8;
    }
 
 }

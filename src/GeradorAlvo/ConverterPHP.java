@@ -7,11 +7,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import parser.ParserSintatico;
 
 public class ConverterPHP {
     
     final String regexDeclaracaoVariaveis = "(int|float)+\\s*([A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇ<>Ñ_,0-9]+)\\;";;
-    final String regexVar = "([A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)";
+    final String regexVar = "([A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_0-9]+)";
     
     private ArrayList<String> variaveis = new ArrayList<>();
     
@@ -43,10 +44,16 @@ public class ConverterPHP {
             pattern = Pattern.compile(regexVar, Pattern.MULTILINE);
             matcher = pattern.matcher(texto);
               
+            ArrayList<String> variaveisDeclaradas = new ArrayList<String>();
+            for(int i=0;i<ParserSintatico.tabelaSimbolos.size();i++){
+                variaveisDeclaradas.add(ParserSintatico.tabelaSimbolos.get(i).getLexema());
+            }
+            
             texto = texto.replace("while", "§");
             while (matcher.find()) {
                 if(!eNaoVar(matcher.group(0))){
-                    if(!variaveis.contains(matcher.group(0))){
+                    if(!variaveis.contains(matcher.group(0)) && variaveisDeclaradas.contains(matcher.group(0))){
+                        System.out.println(matcher.group(0));
                         texto = texto.replace(matcher.group(0), "$"+matcher.group(0));
                         variaveis.add(matcher.group(0));
                     }
